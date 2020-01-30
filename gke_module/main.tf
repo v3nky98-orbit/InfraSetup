@@ -1,13 +1,13 @@
 //create vpc
 
 resource "google_compute_network" "vpc"{
-    name = "${var.orb-vpc}"
+    name = "${var.orb-vpc_name}"
     auto_create_subnetworks = "false"
 }
 
 //create subnet for orb-vpc
 resource "google_compute_subnetwork" "subnet"{
-    name = "${var.orb-subnet}"
+    name = "${var.orb-subnet_name}"
     ip_cidr_range = "${var.subnet_cidr}"
     network = "${var.orb-vpc}"
     depends_on = ["google_compute_network.vpc"]
@@ -68,7 +68,7 @@ node_config {
 
 resource "google_compute_firewall" "orb-firewall"{
 
-    name = "${var.google_compute_firewall}"
+    name = "${var.google_compute_firewall_name}"
     network = "${google_compute_network.vpc.name}"
 
     allow{
